@@ -1,0 +1,254 @@
+{
+  "openapi": "3.0.3",
+  "title": "Sarvm Auth Service",
+  "description": "These are the api exposed in Auth Service.",
+  "version": "1.0.1",
+  "servers": [
+    {
+      "url": "http://localhost:3200/",
+      "description": "Local server"
+    },
+    {
+      "url": "https://api.sarvm.ai/",
+      "description": "PRD server"
+    },
+    {
+      "url": "https://uat-api.sarvm.ai/",
+      "description": "STG server"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "Token": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "accesstoken": {
+                "type": "string",
+                "format": "int64"
+              },
+              "refreshtoken": {
+                "type": "string",
+                "format": "int64"
+              }
+            }
+          }
+        }
+      },
+      "Success": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": "false"
+          },
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "example": "INTERNAL_SERVER_ERROR"
+              },
+              "originalError": {
+                "type": "string",
+                "example": "INTERNAL_SERVER_ERROR"
+              },
+              "message": {
+                "type": "string",
+                "example": "INTERNAL_SERVER_ERROR"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/auth/apis/v1/token/{userId}": {
+      "get": {
+        "description": "Returns auth and refresh token after authenticatiing the user.",
+        "summary": "Get Token",
+        "tags": ["Auth Service"],
+        "responses": {
+          "200": {
+            "description": "Access Token and Refresh Token are generated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Token"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "In case of any error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "userId",
+          "in": "path",
+          "description": "ID of User",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "style": "simple",
+          "example": "63300cb5ea6a3078062a23fc"
+        },
+        {
+          "name": "app_name",
+          "in": "header",
+          "description": "ID of User",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "style": "simple",
+          "example": "retailerApp"
+        },
+        {
+          "name": "app_version_code",
+          "in": "header",
+          "description": "ID of User",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          },
+          "style": "simple",
+          "example": 101
+        }
+      ]
+    },
+    "/auth/apis/v1/unauth_token": {
+      "get": {
+        "description": "Returns auth and refresh token after authenticatiing the user.",
+        "summary": "Get Unauth Token",
+        "tags": ["Auth Service"],
+        "responses": {
+          "200": {
+            "description": "Access Token and Refresh Token are generated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Token"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "In case of any error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "app_name",
+          "in": "header",
+          "description": "ID of User",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "style": "simple",
+          "example": "retailerApp"
+        },
+        {
+          "name": "app_version_code",
+          "in": "header",
+          "description": "ID of User",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          },
+          "style": "simple",
+          "example": 101
+        }
+      ]
+    },
+    "/auth/apis/healthcheck": {
+      "get": {
+        "description": "Returns auth and refresh token after authenticatiing the user.",
+        "summary": "Healthcheck",
+        "tags": ["Auth Service"],
+        "responses": {
+          "200": {
+            "description": "Access Token and Refresh Token are generated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "In case of any error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "app_name",
+          "in": "header",
+          "description": "ID of User",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "style": "simple",
+          "example": "retailerApp"
+        },
+        {
+          "name": "app_version_code",
+          "in": "header",
+          "description": "ID of User",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          },
+          "style": "simple",
+          "example": 101
+        }
+      ]
+    }
+  }
+}

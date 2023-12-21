@@ -1,0 +1,25 @@
+FROM node:17.9.1 AS build
+
+WORKDIR /usr/src/app
+COPY ./package.json ./
+COPY ./package-lock.json ./
+COPY ./server.js ./
+COPY ./.lcl.env ./
+
+RUN npm ci
+
+FROM node:17.9.1-alpine
+
+ARG BUILD_NUMBER
+ENV BUILD_NUMBER=${BUILD_NUMBER} 
+
+WORKDIR /usr/src/app
+COPY --from=build /usr/src/app ./
+
+COPY src ./src
+
+VOLUME [ "/usr/src/logs" ]
+
+EXPOSE 1215
+
+CMD ["sh", "-c", "npm run dbm:update && npm run lcl"]

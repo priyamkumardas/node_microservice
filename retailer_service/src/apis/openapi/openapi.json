@@ -1,0 +1,1881 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "version": "1.0.0",
+    "title": "Sarvm Retailer App",
+    "description": "Retailer Application API"
+  },
+  "license": {
+    "name": "MIT",
+    "url": "https://opensource.org/licenses/MIT"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:1215",
+      "description": "Local server"
+    },
+    {
+      "url": "http://auth-nlb-e953c9da3a44bec4.elb.ap-south-1.amazonaws.com/",
+      "description": "Dev Server"
+    },
+    {
+      "url": "https://api.sarvm.ai/",
+      "description": "PRD server"
+    },
+    {
+      "url": "http://auth-nlb-e953c9da3a44bec4.elb.ap-south-1.amazonaws.com/",
+      "description": "STG server"
+    },
+    {
+      "url": "http://localhost:3000/",
+      "description": "UAT_VPN"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Health Check",
+      "description": "Access to Health"
+    },
+    {
+      "name": "Time",
+      "description": "Operations about Shop"
+    },
+    {
+      "name": "Shop",
+      "description": "Operations about Shop"
+    },
+    {
+      "name": "Stores",
+      "description": "Operations about Stores"
+    },
+    {
+      "name": "Catalog",
+      "description": "Operations about  catalog"
+    },
+    {
+      "name": "MetaData",
+      "description": "Operations about MetaData"
+    },
+    {
+      "name": "Orders",
+      "description": "Operations about Orders"
+    }
+  ],
+  "paths": {
+    "/rms/apis/healthcheck": {
+      "get": {
+        "tags": ["Health Check"],
+        "description": "Checks health of an app",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthCheck"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthCheck"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rms/apis/v1/shop/all": {
+      "get": {
+        "tags": ["Shop"],
+        "summary": "Get all shops of retailer",
+        "description": "",
+        "operationId": "getAll",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rms/apis/v1/shop": {
+      "post": {
+        "tags": ["Shop"],
+        "summary": "Add a new shop to the system",
+        "description": "Add a new shop to the system",
+        "operationId": "addShop",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "access token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "description": "Create a new shop in the system",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Shop"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Shop"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Shop"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "get": {
+        "tags": ["Shop"],
+        "summary": "Get all shops of retailer",
+        "description": "",
+        "operationId": "getAll",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rms/apis/v1/shop/{shopid}": {
+      "get": {
+        "tags": ["Shop"],
+        "summary": "Get  shops of retailer",
+        "description": "",
+        "operationId": "getShopById",
+        "parameters": [
+          {
+            "name": "shopid",
+            "in": "path",
+            "description": "The shopid that needs to be fetched. Use 2 for testing. ",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Shop"],
+        "summary": "Update shop",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "updateShop",
+        "parameters": [
+          {
+            "name": "shopid",
+            "in": "path",
+            "description": "shopid that need to be updated",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Update an existent shop in the system",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Shop"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Shop"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Shop"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Shop"],
+        "summary": "Delete Shop",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "deleteShop",
+        "parameters": [
+          {
+            "name": "shopid",
+            "in": "path",
+            "description": "The shopid that needs to be deleted",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid shopid supplied"
+          },
+          "404": {
+            "description": "Shop not found"
+          }
+        }
+      }
+    },
+    "/rms/apis/v1/shop/details/{shopid}": {
+      "get": {
+        "tags": ["Shop"],
+        "summary": "Get  shops of retailer",
+        "description": "",
+        "operationId": "getShopById",
+        "parameters": [
+          {
+            "name": "shopid",
+            "in": "path",
+            "description": "The shopid that needs to be fetched. Use 2 for testing. ",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rms/apis/v1/shop/{shopid}/subscription/status": {
+      "post": {
+        "tags": ["Shop"],
+        "summary": "Subscription status of shop",
+        "description": "",
+        "operationId": "SubscriptionStatus",
+        "parameters": [
+          {
+            "name": "shopid",
+            "in": "path",
+            "description": "The shopid that needs to be fetched. Use 2 for testing. ",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Create a new shop in the system",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubscriptionStatus"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/SubscriptionStatus"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/SubscriptionStatus"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rms/apis/v1/shop/{shopid}/kyc/status": {
+      "post": {
+        "tags": ["Shop"],
+        "summary": "KYC Status  of shop",
+        "description": "",
+        "operationId": "KYCStatus",
+        "parameters": [
+          {
+            "name": "shopid",
+            "in": "path",
+            "description": "The shopid that needs to be fetched. Use 2 for testing. ",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Create KYC Status for shop in the system",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KYCStatus"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/KYCStatus"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/KYCStatus"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rms/apis/v1/shop/{shopid}/gst": {
+      "post": {
+        "tags": ["Shop"],
+        "summary": "Add GST No  to shop",
+        "description": "",
+        "operationId": "addGSTNo",
+        "parameters": [
+          {
+            "name": "shopid",
+            "in": "path",
+            "description": "The shopid that needs to be fetched. Use 2 for testing. ",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Create GST No for shop in the system",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GSTNo"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/GSTNo"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/GSTNo"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Shop"],
+        "summary": "Get  GST No of shop",
+        "description": "",
+        "operationId": "getShopGST",
+        "parameters": [
+          {
+            "name": "shopid",
+            "in": "path",
+            "description": "The shopid that needs to be fetched. Use 2 for testing. ",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rms/apis/v1/time": {
+      "get": {
+        "tags": ["Time"],
+        "summary": "Get  shops of retailer",
+        "description": "",
+        "operationId": "getShopById",
+        "parameters": [
+          {
+            "name": "shopid",
+            "in": "path",
+            "description": "The shopid that needs to be fetched. Use 2 for testing. ",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Time"],
+        "summary": "Update Time",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "updateTime",
+        "parameters": [
+          {
+            "name": "shopid",
+            "in": "path",
+            "description": "shopid that need to be updated",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Update an existent shop in the system",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Shop"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Shop"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Shop"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Time"],
+        "summary": "Delete Time",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "deleteTime",
+        "parameters": [
+          {
+            "name": "shopid",
+            "in": "path",
+            "description": "The shopid that needs to be deleted",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid shopid supplied"
+          },
+          "404": {
+            "description": "Shop not found"
+          }
+        }
+      }
+    },
+    "/rms/apis/v1/time/{shopid}": {
+      "post": {
+        "tags": ["Time"],
+        "summary": "Add working hours in the system",
+        "description": "Add working hours in the system",
+        "operationId": "addTime",
+        "parameters": [
+          {
+            "name": "shopid",
+            "in": "path",
+            "description": "The shopid that needs to be fetched. Use 2 for testing. ",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Add working hours in the system",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkingHour"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkingHour"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkingHour"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "get": {
+        "tags": ["Time"],
+        "summary": "Get working hours",
+        "description": "",
+        "operationId": "getWorkingHoursByShopId",
+        "parameters": [
+          {
+            "name": "shopid",
+            "in": "path",
+            "description": "The shopid that needs to be fetched. Use 2 for testing. ",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rms/apis/v1/stores": {
+      "get": {
+        "tags": ["Stores"],
+        "summary": "Get  Stores",
+        "description": "",
+        "operationId": "getStores",
+        "parameters": [
+          {
+            "name": "longitude",
+            "in": "header",
+            "description": " ",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "latitude",
+            "in": "header",
+            "description": " ",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "distance",
+            "in": "header",
+            "description": " ",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rms/apis/v1/catalog/verify/{shopid}": {
+      "get": {
+        "tags": ["Catalog"],
+        "summary": "Verify Catalog",
+        "description": "Verify Catalog",
+        "operationId": "getStores",
+        "parameters": [
+          {
+            "name": "shopid",
+            "in": "path",
+            "description": "The shopid that needs to be fetched. Use 2 for testing. ",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rms/apis/v1/catalog/{shopid}": {
+      "post": {
+        "tags": ["Catalog"],
+        "summary": "Add Catalog in the system",
+        "description": "Add Catalog in the system",
+        "operationId": "addCatalog",
+        "parameters": [
+          {
+            "name": "shopid",
+            "in": "path",
+            "description": "The shopid that needs to be fetched. Use 2 for testing. ",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Add Catalog in the system",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Catalog"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Catalog"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Catalog"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "get": {
+        "tags": ["Catalog"],
+        "summary": "Get Catalog",
+        "description": "",
+        "operationId": "getCatalog",
+        "parameters": [
+          {
+            "name": "shopid",
+            "in": "path",
+            "description": "The shopid that needs to be fetched. Use 2 for testing. ",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Catalog"],
+        "summary": "Update Catalog",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "updateCatalog",
+        "parameters": [
+          {
+            "name": "shopid",
+            "in": "path",
+            "description": "shopid that need to be updated",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Update an existent Catalog in the system",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Catalog"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Catalog"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Catalog"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/rms/apis/v1/metadata": {
+      "get": {
+        "tags": ["MetaData"],
+        "summary": "MetaData",
+        "description": "MetaData",
+        "operationId": "getMetaData",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rms/apis/v1/orders": {
+      "get": {
+        "tags": ["Orders"],
+        "summary": "Orders",
+        "description": "Orders",
+        "operationId": "getOrders",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "The status that needs to be fetched. Use ALL for testing. ",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rms/apis/v1/orders/{orderId}": {
+      "get": {
+        "tags": ["Orders"],
+        "summary": "Get Order By OrderId",
+        "description": "",
+        "operationId": "getOrderById",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "The shopid that needs to be fetched. Use 2 for testing. ",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rms/apis/v1/orders/{orderId}/status": {
+      "put": {
+        "tags": ["Orders"],
+        "summary": "Update Order",
+        "description": "Update Order",
+        "operationId": "updateOrder",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "orderId that need to be updated",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Update an existent Order in the system",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Order"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Order"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Order"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiResponseSuccess": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "data": {
+            "type": "array",
+            "example": []
+          }
+        },
+        "xml": {
+          "name": "##default"
+        }
+      },
+      "ApiResponseError500": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": false
+          },
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "example": "INTERNAL_SERVER_ERROR"
+              },
+              "originalError": {
+                "type": "string",
+                "example": "ERROR"
+              },
+              "message": {
+                "type": "string",
+                "example": "Internal server error occurred"
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "##default"
+        }
+      },
+      "HealthCheck": {
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "ts": {
+                "type": "string",
+                "example": "2022-10-31T06:30:29.296Z"
+              },
+              "buildNumber": {
+                "type": "string",
+                "example": "71"
+              },
+              "serviceName": {
+                "type": "string",
+                "example": "rms"
+              }
+            }
+          }
+        }
+      },
+      "Shop": {
+        "type": "object",
+        "properties": {
+          "longitude": {
+            "type": "number",
+            "example": "45.55"
+          },
+          "latitude": {
+            "type": "number",
+            "example": "45.55"
+          },
+          "shop_number": {
+            "type": "integer",
+            "format": "int32",
+            "example": "12333"
+          },
+          "locality": {
+            "type": "string",
+            "example": "test"
+          },
+          "landmark": {
+            "type": "string",
+            "example": "test3"
+          },
+          "street": {
+            "type": "string",
+            "example": "test"
+          },
+          "city": {
+            "type": "string",
+            "example": "hyedrabad"
+          },
+          "pincode": {
+            "type": "integer",
+            "format": "int32",
+            "example": "456"
+          },
+          "shop_name": {
+            "type": "string",
+            "example": "test"
+          },
+          "selling_type": {
+            "type": "string",
+            "example": "test"
+          }
+        }
+      },
+      "WorkingHour": {
+        "properties": {
+          "workingHours": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "dName": {
+                  "type": "string",
+                  "example": "MON"
+                },
+                "isEnable": {
+                  "type": "boolean"
+                },
+                "alltime": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "startTime": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2022-08-17T20:10:00+05:30"
+                      },
+                      "endTime": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2022-08-17T21:10:00+05:30"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "WorkingHours": {
+        "type": "array",
+        "$ref": "#/components/schemas/WorkingHour"
+      },
+      "SubscriptionStatus": {
+        "type": "object",
+        "properties": {
+          "isSubscribed": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "KYCStatus": {
+        "type": "object",
+        "properties": {
+          "isKYCVerified": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "GSTNo": {
+        "type": "object",
+        "properties": {
+          "GST_no": {
+            "type": "string",
+            "example": "57657575765"
+          }
+        }
+      },
+      "Catalog": {
+        "type": "object",
+        "properties": {
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "soldBy": {
+                  "type": "string",
+                  "example": "PICES"
+                },
+                "sp": {
+                  "type": "integer",
+                  "format": "int32",
+                  "example": "120"
+                },
+                "grading": {
+                  "type": "integer",
+                  "format": "int32",
+                  "example": "4"
+                },
+                "min_qty_order": {
+                  "type": "integer",
+                  "format": "int32",
+                  "example": "12"
+                },
+                "max_qty_order": {
+                  "type": "integer",
+                  "format": "int32",
+                  "example": "45"
+                },
+                "regular_price": {
+                  "type": "integer",
+                  "format": "int32",
+                  "example": "45"
+                },
+                "discount_price": {
+                  "type": "integer",
+                  "format": "int32",
+                  "example": "45"
+                },
+                "min_price_order": {
+                  "type": "integer",
+                  "format": "int32",
+                  "example": "56"
+                },
+                "quantity": {
+                  "type": "integer",
+                  "format": "int32",
+                  "example": "12"
+                },
+                "cost_price": {
+                  "type": "integer",
+                  "format": "int32",
+                  "example": "45"
+                },
+                "sku": {
+                  "type": "string",
+                  "example": "test"
+                },
+                "stock_status": {
+                  "type": "boolean"
+                },
+                "published": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Order": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ACCEPTED"
+          }
+        }
+      }
+    },
+    "requestBodies": {
+      "Shop": {
+        "description": "Shop object that needs to be added to the system",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Shop"
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "$ref": "#/components/schemas/Shop"
+            }
+          }
+        }
+      },
+      "SubscriptionStatus": {
+        "description": "Subscription Status object that needs to be added to the system",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/SubscriptionStatus"
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "$ref": "#/components/schemas/SubscriptionStatus"
+            }
+          }
+        }
+      },
+      "KYCStatus": {
+        "description": "KYC Status object that needs to be added to the system",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/KYCStatus"
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "$ref": "#/components/schemas/KYCStatus"
+            }
+          }
+        }
+      },
+      "GSTNo": {
+        "description": "GST No object that needs to be added to the system",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/GSTNo"
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "$ref": "#/components/schemas/GSTNo"
+            }
+          }
+        }
+      },
+      "Order": {
+        "description": "GST No object that needs to be added to the system",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Order"
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "$ref": "#/components/schemas/Order"
+            }
+          }
+        }
+      },
+      "Catalog": {
+        "description": "GST No object that needs to be added to the system",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Catalog"
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "$ref": "#/components/schemas/Catalog"
+            }
+          }
+        }
+      },
+      "ShopArray": {
+        "description": "List of shop object",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Shop"
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Access token",
+        "in": "header",
+        "name": "Authorization"
+      }
+    }
+  }
+}

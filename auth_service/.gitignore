@@ -1,0 +1,23 @@
+node_modules
+npm-debug.log
+./coverage
+src/node_modules
+src/npm-debug.log
+src/customScripts
+.DS_Store
+
+# ENV files
+.env.dev
+.env.prd
+.env.stg
+
+#temp files
+test.js
+dummy.js
+todo.txt
+.dump
+
+logs/
+
+#editor config
+.vscode

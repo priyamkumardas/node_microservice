@@ -1,0 +1,9 @@
+const ORDER_SERVICE_ERROR = require('./ORDER_SERVICE_ERROR');
+const INVALID_STATUS_MOVE = require('./INVALID_STATUS_MOVE');
+const ORDER_NOT_FOUND = require('./ORDER_NOT_FOUND');
+
+module.exports = {
+  ORDER_SERVICE_ERROR,
+  INVALID_STATUS_MOVE,
+  ORDER_NOT_FOUND,
+};

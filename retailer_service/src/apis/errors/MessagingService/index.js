@@ -1,0 +1,5 @@
+const MESSAGING_SERVICE_ERROR = require('./MESSAGING_SERVICE_ERROR');
+
+module.exports = {
+  MESSAGING_SERVICE_ERROR,
+};

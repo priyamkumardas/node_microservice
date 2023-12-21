@@ -1,0 +1,27 @@
+FROM 326457620362.dkr.ecr.ap-south-1.amazonaws.com/node:17.9.1 AS build
+
+#ARG GITHUB_TOKEN
+#RUN git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
+
+WORKDIR /usr/src/app
+COPY ./package.json ./
+COPY ./package-lock.json ./
+COPY ./server.js ./
+
+RUN npm ci --production --no-audit
+
+FROM 326457620362.dkr.ecr.ap-south-1.amazonaws.com/node:17.9.1-alpine
+
+ARG BUILD_NUMBER
+ENV BUILD_NUMBER=${BUILD_NUMBER} 
+
+WORKDIR /usr/src/app
+COPY --from=build /usr/src/app ./
+
+COPY src ./src
+
+VOLUME [ "/usr/src/logs" ]
+
+EXPOSE 1210
+
+CMD ["sh", "-c", "NODE_ENV=production npm run-script prd"]

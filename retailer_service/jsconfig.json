@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "baseUrl": ".",
+    "paths": {
+      "@root/*": ["./*"],
+      "@src/*": ["src/*"],
+      "@controllers/*": ["src/apis/controllers/*"],
+      "@services/*": ["src/apis/services/*"],
+      "@models/*": ["src/apis/models/*"],
+      "@routes/*": ["src/apis/routes/*"],
+      "@constants": ["src/constants/index.js"],
+      "@config": ["src/config/index.js"],
+      "@errors": ["src/errors/index.js"],
+      "@common/*": ["src/common/*"],
+      "@db/*": ["src/apis/db/*"]
+    }
+  },
+  "exclude": ["node_modules"]
+}

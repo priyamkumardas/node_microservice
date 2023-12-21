@@ -1,0 +1,7 @@
+const LOGISTIC_SERVICE_ERROR = require('./LOGISTIC_SERVICE_ERROR');
+const TRIP_VALIDATION = require('./TRIP_VALIDATION');
+
+module.exports = {
+  LOGISTIC_SERVICE_ERROR,
+  TRIP_VALIDATION
+};

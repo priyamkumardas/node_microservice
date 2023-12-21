@@ -1,0 +1,28 @@
+[
+    {   "user_id":"63300cb5ea6a3078062a23fc",
+        "longitude": 45.55,
+        "latitude": 45.55,
+        "shop_number": 12333,
+        "locality": "HSR Layout",
+        "landmark": "Near Silk Board",
+        "street": "HSR-sector 2",
+        "city": "BLR",
+        "pincode": 456,
+        "shop_name": "Subbu Dry Fruits",
+        "selling_type":"test",
+        "shop_id":1
+    },
+    {   "user_id":"63300cb5ea6a3078062a23fc",
+        "longitude": 35.55,
+        "latitude": 33.55,
+        "shop_number": 345,
+        "locality": "Mythrivanam",
+        "landmark": "Mythrivanam Metro",
+        "street": "Mythrivanam Main",
+        "city": "HYD",
+        "pincode": 5667,
+        "shop_name": "Charminar Dry Fruits",
+        "selling_type":"test",
+        "shop_id":2
+    }
+]

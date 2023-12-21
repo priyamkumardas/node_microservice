@@ -1,0 +1,665 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "version": "1.0.0",
+    "title": "Sarvm User Management Service",
+    "description": "User Management Service API"
+  },
+  "license": {
+    "name": "MIT",
+    "url": "https://opensource.org/licenses/MIT"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:1207",
+      "description": "Local server"
+    },
+    {
+      "url": "http://auth-nlb-e953c9da3a44bec4.elb.ap-south-1.amazonaws.com/",
+      "description": "Dev Server"
+    },
+    {
+      "url": "https://api.sarvm.ai/",
+      "description": "PRD server"
+    },
+    {
+      "url": "http://auth-nlb-e953c9da3a44bec4.elb.ap-south-1.amazonaws.com/",
+      "description": "STG server"
+    },
+    {
+      "url": "http://localhost:3000/",
+      "description": "UAT_VPN"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Health Check",
+      "description": "Access to Health"
+    },
+    {
+      "name": "Address",
+      "description": "Operations about Address"
+    }
+  ],
+  "paths": {
+    "/ums/apis/healthcheck": {
+      "get": {
+        "tags": ["Health Check"],
+        "description": "Checks health of an app",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthCheck"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthCheck"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ums/apis/v1/users/{userId}/address": {
+      "get": {
+        "tags": ["Address"],
+        "summary": "Get  All Address of user",
+        "description": "",
+        "operationId": "getAllAddressByUserId",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "The userId that needs to be fetched.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Address"],
+        "summary": "Save Address of user",
+        "description": "",
+        "operationId": "saveUserAddress",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "The userId that needs to be fetched.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Create a new Address for User in the system",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Address"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Address"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Address"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ums/apis/v1/users/{userId}/address/{id}": {
+      "get": {
+        "tags": ["Address"],
+        "summary": "Get   Address of user",
+        "description": "Orders",
+        "operationId": "getAddressByUserId",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "The userId that needs to be fetched",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id that needs to be fetched",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Address"],
+        "summary": "Update Address of user",
+        "description": "",
+        "operationId": "updateAddressByUserId",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "The userId that needs to be fetched",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id that needs to be fetched",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Instruction Order in the system",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Address"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Address"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Address"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Address"],
+        "summary": "Update Address of user",
+        "description": "",
+        "operationId": "updateAddressByUserId",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "The userId that needs to be fetched",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id that needs to be fetched",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Update Address of User in the system",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Address"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Address"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Address"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Address"],
+        "summary": "Orders",
+        "description": "Orders",
+        "operationId": "getOrders",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "The userId that needs to be fetched",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id that needs to be fetched",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseError500"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiResponseSuccess": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "data": {
+            "type": "array",
+            "example": []
+          }
+        },
+        "xml": {
+          "name": "##default"
+        }
+      },
+      "ApiResponseError500": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": false
+          },
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "example": "INTERNAL_SERVER_ERROR"
+              },
+              "originalError": {
+                "type": "string",
+                "example": "ERROR"
+              },
+              "message": {
+                "type": "string",
+                "example": "Internal server error occurred"
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "##default"
+        }
+      },
+      "HealthCheck": {
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "ts": {
+                "type": "string",
+                "example": "2022-11-15T16:17:49.278Z"
+              },
+              "buildNumber": {
+                "type": "string",
+                "example": "101"
+              },
+              "serviceName": {
+                "type": "string",
+                "example": "ums"
+              }
+            }
+          }
+        }
+      },
+      "Address": {
+        "type": "object",
+        "properties": {
+          "addressType": {
+            "type": "string",
+            "example": "Work"
+          },
+          "primary": {
+            "type": "boolean"
+          },
+          "streetAddress": {
+            "type": "string",
+            "example": "H Colony "
+          },
+          "locality": {
+            "type": "string",
+            "example": "Nowshera"
+          },
+          "landmark": {
+            "type": "string",
+            "example": "Shop"
+          },
+          "region": {
+            "type": "string",
+            "example": "Eidgah"
+          },
+          "city": {
+            "type": "string",
+            "example": "Srinagar"
+          },
+          "state": {
+            "type": "string",
+            "example": "J&K"
+          },
+          "country": {
+            "type": "string",
+            "example": "India"
+          },
+          "pincode": {
+            "type": "string",
+            "example": "190011"
+          },
+          "location": {
+            "type": "object",
+            "properties": {
+              "longitude": {
+                "type": "string",
+                "example": "34.083656"
+              },
+              "latitude": {
+                "type": "string",
+                "example": "74.797371"
+              }
+            }
+          }
+        }
+      }
+    },
+    "requestBodies": {
+      "Address": {
+        "description": "Address object that needs to be added to the system",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Address"
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "$ref": "#/components/schemas/Address"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Access token",
+        "in": "header",
+        "name": "Authorization"
+      }
+    }
+  }
+}

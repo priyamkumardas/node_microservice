@@ -1,0 +1,22 @@
+{
+  "name": "local_loadbalancer",
+  "version": "1.0.0",
+  "description": "_Below is an example of how you can use local loadbalancer/proxy server._",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git-codecommit.ap-south-1.amazonaws.com/v1/repos/local_loadbalancer"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "http-proxy-middleware": "^2.0.6",
+    "nodemon": "^2.0.22"
+  }
+}

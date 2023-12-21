@@ -1,0 +1,375 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Sarvm Referal Management Service",
+        "description": "Api's for refereal managemnet service",
+        "version": "1.0.1",
+        "termsOfService": "https://sarvm.ai/terms&conditions.html",
+        "contact": {
+          "email": "media@sarvm.ai",
+          "name": "SarvM",
+          "url": "https://sarvm.ai/"
+        },
+        "license": {
+          "name": "ISC",
+          "url": "https://opensource.org/licenses/ISC"
+        }
+      },
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ],
+    "servers": [
+        {
+            "url": "http://localhost:3200",
+            "description": "Local server"
+        },
+        {
+            "url": "https://api.sarvm.ai",
+            "description": "PRD server"
+        },
+        {
+            "url": "https://uat-api.sarvm.ai",
+            "description": "STG server"
+        }
+    ],
+    "components": {
+        "schemas": {
+            "Success": {
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "data": {
+                        "type": "object"
+                    }
+                }
+            },
+            "Error": {
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "boolean",
+                        "example": "false"
+                    },
+                    "error": {
+                        "type": "object",
+                        "properties": {
+                            "code": {
+                                "type": "string",
+                                "example": "INTERNAL_SERVER_ERROR"
+                            },
+                            "originalError": {
+                                "type": "string",
+                                "example": "INTERNAL_SERVER_ERROR"
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "INTERNAL_SERVER_ERROR"
+                            }
+                        }
+                    }
+                }
+            },
+            "Invite": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": ["INDIVIDUAL", "RETAILER"]
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "1234567890"
+                    }
+                }
+            },
+            "UserDetails": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "example": "007"
+                    },
+                    "userName": {
+                        "type": "string",
+                        "example": "aditya"
+                    }
+                }
+            },
+            "StatusUpdate": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": ["INDIVIDUAL", "RETAILER"]
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "9897885270"
+                    },
+                    "stage": {
+                        "type": "string",
+                        "example":"buy_subscription"
+                    }
+                }
+            },
+            "RewardStatus": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "rewardId": {
+                            "type": "string",
+                            "status": "6347be7a542252172b28ca9f"
+                        },
+                        "status": {
+                            "type": "string",
+                            "example": "success"
+                        }
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        },
+        "requestBodies": {
+            "inviteBody": {
+                "description": "Body required for invite api",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Invite"
+                        }
+                    }
+                } 
+            },
+            "referalCodeBody": {
+                "description": "Body required for seding reminder on invite.",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/UserDetails"
+                        }
+                    }
+                } 
+            },
+            "StatusUpdateBody": {
+                "description": "Body required for status update",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/StatusUpdate"
+                        }
+                    }
+                } 
+            },
+            "RewardStatusupdateBody": {
+                "description": "Body required for status update",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/RewardStatus"
+                        }
+                    }
+                } 
+            }
+        }
+    },
+    "paths": {
+        "/ref_ms/apis/healthcheck": {
+            "get": {
+                "summary": "Healthcheck",
+                "tags": ["Referal Management Service"],
+                "responses": {
+                    "200": {
+                        "description": "Response schema if the request is a success.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Success"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Response schema if the request is Failed.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ref_ms/apis/v1/ref/invite": {
+            "post": {   
+                "summary": "Invite",
+                "tags": ["Referal Management Service"],
+                "responses": {
+                    "200": {
+                        "description": "Response schema if the request is a success.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Success"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Response schema if the request is Failed.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "$ref": "#components/requestBodies/inviteBody"
+                }
+            }
+        },
+        "/ref_ms/apis/v1/ref/sendReminder": {
+            "post": {   
+                "summary": "sendReminder",
+                "tags": ["Referal Management Service"],
+                "responses": {
+                    "200": {
+                        "description": "Response schema if the request is a success.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Success"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Response schema if the request is Failed.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "$ref": "#components/requestBodies/inviteBody"
+                }
+            }
+        },
+        "/ref_ms/apis/v1/ref/generateReferralCode": {
+            "post": {   
+                "summary": "generateReferralCode",
+                "tags": ["Referal Management Service"],
+                "responses": {
+                    "200": {
+                        "description": "Response schema if the request is a success.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Success"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Response schema if the request is Failed.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "$ref": "#components/requestBodies/referalCodeBody"
+                }
+            }
+        },
+        "/ref_ms/apis/v1/ref/": {
+            "put": {   
+                "summary": "on_status_update",
+                "tags": ["Referal Management Service"],
+                "responses": {
+                    "200": {
+                        "description": "Response schema if the request is a success.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Success"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Response schema if the request is Failed.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "$ref": "#components/requestBodies/StatusUpdateBody"
+                }
+            }
+        },
+        "/ref_ms/apis/v1/reward/": {
+            "put": {   
+                "summary": "on reward status update",
+                "tags": ["Referal Management Service"],
+                "responses": {
+                    "200": {
+                        "description": "Response schema if the request is a success.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Success"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Response schema if the request is Failed.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "$ref": "#components/requestBodies/RewardStatusupdateBody"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,11 @@
+[
+    {
+        "id":1,
+        "shop_id":123,
+        "version":1,
+        "url":"https://www.google.com",
+        "active":true
+
+    }
+
+]

@@ -1,0 +1,72 @@
+{
+  "name": "referral_mgmt_service",
+  "version": "1.0.0",
+  "description": "Referral Management Service",
+  "main": "./server.js",
+  "scripts": {
+    "prd": "node ./server",
+    "stg": "nodemon ./server",
+    "lcl": "nodemon -r dotenv/config ./server dotenv_config_path=./.lcl.env",
+    "lcl:prd": "nodemon -r dotenv/config ./server dotenv_config_path=./.prd.env",
+    "lcl:stg": "nodemon -r dotenv/config ./server dotenv_config_path=./.stg.env",
+    "lcl:dev": "nodemon -r dotenv/config ./server dotenv_config_path=./.dev.env",
+    "test": "NODE_OPTIONS=--max-old-space-size=8192 NODE_ENV=test mocha ./unitTests/ --recursive",
+    "migrate-latest-dev": "node -r dotenv/config ./src/scripts/migrateLatest.js dotenv_config_path=./.lcl.env",
+    "migrate-make-lcl": "node -r dotenv/config ./src/scripts/MigrateMake.js dotenv_config_path=./.lcl.env",
+    "migrate-rollback-dev": "node -r dotenv/config ./src/scripts/migrateRollback.js dotenv_config_path=./.lcl.env",
+    "migrate-make-dev": "node -r dotenv/config ./src/scripts/MigrateMake.js dotenv_config_path=./.lcl.env"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Sushant Gautam",
+  "license": "ISC",
+  "private": true,
+  "dependencies": {
+    "aws-sdk": "^2.1260.0",
+    "cls-hooked": "^4.2.2",
+    "cors": "^2.8.5",
+    "cuid": "^3.0.0",
+    "dotenv": "^16.0.1",
+    "elastic-apm-node": "^3.47.0",
+    "express": "^4.18.2",
+    "express-json-validator-middleware": "^3.0.1",
+    "json2csv": "^5.0.7",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^2.0.0",
+    "module-alias": "^2.2.2",
+    "moment": "^2.29.3",
+    "mongoose": "^6.9.0",
+    "mongoose-beautiful-unique-validation": "^7.1.1",
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
+    "nodemailer": "^6.8.0",
+    "objection": "^3.0.1",
+    "referral-code-generator": "^1.0.8",
+    "referral-codes": "^2.0.3",
+    "sarvm-utility": "git+https://sushant.gautam%40sarvm.ai-at-326457620362:ro1XVb4vCYxaiPOlKO95OGNkApsH8SQREmiWUVdRT+c=@git-codecommit.ap-south-1.amazonaws.com/v1/repos/node_utility#v5.0.3",
+    "swagger-ui-express": "^4.5.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.44.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "nodemon": "^2.0.22",
+    "prettier": "^3.0.0"
+  },
+  "_moduleAliases": {
+    "@root": ".",
+    "@controllers": "src/apis/controllers",
+    "@services": "src/apis/services",
+    "@models": "src/apis/models",
+    "@routes": "src/apis/routes",
+    "@constants": "src/constants",
+    "@config": "src/config",
+    "@common": "src/common",
+    "@db": "src/apis/db"
+  }
+}
